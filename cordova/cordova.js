@@ -25,7 +25,7 @@ function exec(command) {
         if(!oExec.StdOut.AtEndOfStream) {
             var line = oExec.StdOut.ReadLine();
             // XXX: Change to verbose mode 
-            // WScript.StdOut.WriteLine(line);
+             WScript.StdOut.WriteLine(line);
             output += line;
         }
         WScript.sleep(100);
