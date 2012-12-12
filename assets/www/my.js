@@ -276,7 +276,7 @@ $(document).ready(function () {
 	$.getJSON("http://www.reviewgist.de/api?operation=listmodels&format=json",
 	 function(data) {
 				 $.each(data.response.models, function(i,model){
-					 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4" data-transition="slide" onclick=getBrands("' + model.model_id +'","'+ model.display_name + '")>' + model.display_name + '</a></li>');
+					 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4" data-transition="slide" onclick="getBrands(\'' + model.model_id +'\',\''+ model.display_name + '\')">' + model.display_name + '</a></li>');
 					$('#listmodels').listview('refresh');
 				 });
 			 });
@@ -290,7 +290,7 @@ function getBrands(Id,display_name){
 	$.getJSON("http://www.reviewgist.de/api?operation=listbrands&model_id="+Id+"&format=json",
 			 function(data) {				
 						 $.each(data.response.brands, function(i,brand){
-							 $('#listbrands').append('<li data-theme="c" id='+ brand.brand_id + '><a href="#page5" data-transition="slide" onclick=getListing("' + Id +'","'+ brand.brand_id +'","'+ brand.display_name + '")>' + brand.display_name + '</a></li>');
+							 $('#listbrands').append('<li data-theme="c" id='+ brand.brand_id + '><a href="#page5" data-transition="slide" onclick="getListing(\'' + Id +'\',\''+ brand.brand_id +'\',\''+ brand.display_name + '\')">' + brand.display_name + '</a></li>');
 							$('#listbrands').listview('refresh');
 						 });
 					 });
@@ -303,8 +303,7 @@ function getListing(model_id,brand_id,display_name){
 	$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems=10&format=json",
 			 function(data) {
 						 $.each(data.response.products, function(i,product){
-							 alert('<li data-theme="c"><a href="#page9" data-transition="slide" onclick=getProduct("' + product.name +'","' + product.image_url + '","' + product.best_price + '")>' + product.name + '<span class="ui-li-count">' + product.best_price +'</span></a></li>');
-							 $('#productlists').append('<li data-theme="c"><a href="#page9" data-transition="slide" onclick=getProduct("' + product.name +'","' + product.image_url + '","' + product.best_price + '")>' + product.name +'<span class="ui-li-count">' + product.best_price + '</span></a></li>');
+							 $('#productlists').append('<li data-theme="c"><a href="#page9" data-transition="slide" onclick="getProduct(\'' + product.name +'\',\'' + product.image_url + '\',\'' + product.best_price + '\')">' + product.name +'<span class="ui-li-count">' + product.best_price + '</span></a></li>');
 							$('#productlists').listview('refresh');
 						 });
 					 });
@@ -312,8 +311,8 @@ function getListing(model_id,brand_id,display_name){
 };
 
 function getProduct(pName,imgUrl,pPrice){
-	alert("getProduct: "+pName);
-	//$('#listing').html(pName);
+	//alert("getProduct: "+pName);
+	$('#product').html(pName);
 	/*$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems=10&format=json",
 			 function(data) {
 				$('#productlists li').remove();
