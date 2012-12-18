@@ -297,26 +297,15 @@ function getBrands(Id,display_name){
 };
 
 function getListing(model_id,brand_id,display_name){
-	$('#listing').html(display_name);
-	$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems=10&format=json",
-			 function(data) {
-						 $('#productlists li').remove();
-						 $.each(data.response.products, function(i,product){
-							 //removng the brandname from the product.name as it becomes leanghty and the models are not visible
-							var pName = product.name;
-							 pName = pName.substring(display_name.length, pName.length);
-							 if(product.best_price)
-								 {
-								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="slide" onclick="getProduct(\'' + pName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName +'<span class="ui-li-count">' + product.best_price + '</span></a></li>');
-								 }
-							 else
-								 {
-								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="slide" onclick="getProduct(\'' + pName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName + '</a></li>');
-								 }
-						 });
-						 $('#productlists').listview('refresh');
-					 });
+	var count = 10;
+	$('#listing').html(display_name);	
+	pupulateListing(model_id,brand_id,display_name,count);
 	
+	$('#loadmore').bind('click', function () {
+		count += 10;
+		alert(count);
+		pupulateListing(model_id,brand_id,display_name,count);		
+		});
 };
 
 function getProduct(pName,imgUrl,pPrice,config_id){
@@ -385,5 +374,26 @@ function getReview(configId,rName,pName){
 								$('#summery').html(review.summary);
 								}
 						 });
+					 });	
+};
+
+function pupulateListing(model_id,brand_id,display_name,count){
+	$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems="+count+"&format=json",
+			 function(data) {
+						 $('#productlists li').remove();
+						 $.each(data.response.products, function(i,product){
+							 //removng the brandname from the product.name as it becomes leanghty and the models are not visible
+							var pName = product.name;
+							 pName = pName.substring(display_name.length, pName.length);
+							 if(product.best_price)
+								 {
+								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="slide" onclick="getProduct(\'' + pName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName +'<span class="ui-li-count">' + product.best_price + '</span></a></li>');
+								 }
+							 else
+								 {
+								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="slide" onclick="getProduct(\'' + pName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName + '</a></li>');
+								 }
+						 });
+						 $('#productlists').listview('refresh');
 					 });	
 };
