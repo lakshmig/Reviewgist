@@ -272,55 +272,118 @@ function closestEnabledButton( element ) {
 }
 
 $(document).ready(function () {
-	$('#listmodels li').remove();
 	$.getJSON("http://www.reviewgist.de/api?operation=listmodels&format=json",
 	 function(data) {
 				 $.each(data.response.models, function(i,model){
 					 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4" data-transition="slide" onclick="getBrands(\'' + model.model_id +'\',\''+ model.display_name + '\')">' + model.display_name + '</a></li>');
-					$('#listmodels').listview('refresh');
 				 });
+				 $('#listmodels').listview('refresh');
 			 });
   }); 
 })(jQuery);
 
 
-function getBrands(Id,display_name){
-	$('#listbrands li').remove();
+function getBrands(Id,display_name){	
 	$('#brands').html(display_name);
 	$.getJSON("http://www.reviewgist.de/api?operation=listbrands&model_id="+Id+"&format=json",
-			 function(data) {				
+			 function(data) {	
+						$('#listbrands li').remove();
 						 $.each(data.response.brands, function(i,brand){
 							 $('#listbrands').append('<li data-theme="c" id='+ brand.brand_id + '><a href="#page5" data-transition="slide" onclick="getListing(\'' + Id +'\',\''+ brand.brand_id +'\',\''+ brand.display_name + '\')">' + brand.display_name + '</a></li>');
-							$('#listbrands').listview('refresh');
 						 });
+						 $('#listbrands').listview('refresh');
 					 });
 	
 };
 
 function getListing(model_id,brand_id,display_name){
-	$('#productlists li').remove();
 	$('#listing').html(display_name);
 	$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems=10&format=json",
 			 function(data) {
+						 $('#productlists li').remove();
 						 $.each(data.response.products, function(i,product){
-							 $('#productlists').append('<li data-theme="c"><a href="#page9" data-transition="slide" onclick="getProduct(\'' + product.name +'\',\'' + product.image_url + '\',\'' + product.best_price + '\')">' + product.name +'<span class="ui-li-count">' + product.best_price + '</span></a></li>');
-							$('#productlists').listview('refresh');
+							 //removng the brandname from the product.name as it becomes leanghty and the models are not visible
+							var pName = product.name;
+							 pName = pName.substring(display_name.length, pName.length);
+							 if(product.best_price)
+								 {
+								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="slide" onclick="getProduct(\'' + pName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName +'<span class="ui-li-count">' + product.best_price + '</span></a></li>');
+								 }
+							 else
+								 {
+								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="slide" onclick="getProduct(\'' + pName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName + '</a></li>');
+								 }
 						 });
+						 $('#productlists').listview('refresh');
 					 });
 	
 };
 
-function getProduct(pName,imgUrl,pPrice){
-	//alert("getProduct: "+pName);
+function getProduct(pName,imgUrl,pPrice,config_id){
 	$('#product').html(pName);
-	/*$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems=10&format=json",
+	if(imgUrl)
+		{
+		$('#product_img').attr('src',imgUrl);
+		}
+	if(pPrice)
+		{
+		$('#product_price').append('<a id="product_price"data-role="button" href="#page6">'+pPrice+ '</a>');
+		}
+	$.getJSON("http://www.reviewgist.de/api?operation=productsummary&config_id="+config_id+"&format=json",
 			 function(data) {
-				$('#productlists li').remove();
-						 $.each(data.response.products, function(i,product){
-							 $('#productlists').append('<li data-theme="c"><a href="#page9" data-transition="slide">' + product.name + '</a></li>');
-							$('#productlists').listview('refresh');
+				$('#product_reviews li').remove();
+						 $.each(data.response.reviews, function(i,review){
+							 var stardiv = '<div id="stardiv" class="reviewRating span2">'; 
+							 var int = review.star_rating.substr(0,1);
+						     var decimal = review.star_rating.substr(1,review.star_rating.length);
+							 for(var i =0;i<int;i++)
+							 	{
+								 stardiv += '<img src="./img/star.png" width="16" height="16" style="margin-right:2px;">'							 
+							 	}
+							 if(decimal !=0 && decimal <= .5)
+							 	{
+								 stardiv += '<img src="./img/halfstar.png" width="16" height="16" style="margin-right:2px;">'	
+								 }
+							 else if(decimal > .5)
+							 	{
+								 stardiv += '<img src="./img/star.png" width="16" height="16" style="margin-right:2px;">'	 
+							 	}
+							 stardiv += '</div>'
+							var li = '<li data-theme="c"><a href="#page8" data-transition="slide" onclick="getReview(\'' + config_id +'\',\''+ review.name +'\',\''+ pName + '\')">' + stardiv + review.name + '</a></li>';
+							 $('#product_reviews').append(li);
 						 });
-					 });*/
+						 $('#product_reviews').listview('refresh');
+					 });
 	
-};
+};	
 
+function getReview(configId,rName,pName){
+	$('#rating_div').html();
+	$.getJSON("http://www.reviewgist.de/api?operation=productsummary&config_id="+configId+"&format=json",
+			 function(data) {
+						 $.each(data.response.reviews, function(i,review){
+							if(review.name == rName)
+								{
+								$('#review_product').html(pName);
+								$('#review_prd_img').attr('src',data.response.image_url);
+								$('#reviewRating img').remove();
+								 var int = review.star_rating.substr(0,1);
+							     var decimal = review.star_rating.substr(1,review.star_rating.length);
+								 for(var i = 0;i < int; i++){
+									$('#reviewRating').append('<img src="./img/star.png" width="16" height="16" style="margin-right:2px;">');		
+									}
+								 if(decimal !=0 && decimal <= .5)
+								 	{
+									 $('#reviewRating').append('<img src="./img/halfstar.png" width="16" height="16" style="margin-right:2px;">');		
+									 }
+								 else if(decimal > .5)
+								 	{
+									 $('#reviewRating').append('<img src="./img/star.png" width="16" height="16" style="margin-right:2px;">');		 
+								 	}
+								$('#review_rating_name').html(review.name);
+								$('#date_span').html(review.date);
+								$('#summery').html(review.summary);
+								}
+						 });
+					 });	
+};
