@@ -16,12 +16,11 @@
         </script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js">
         </script>
+        <script type="text/javascript" charset="utf-8" src="cordova-2.3.0rc1.js"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap-1.2.0.js"></script>
         <script src="./my.js">
         </script>
-        <script>
-        </script>
-    </head>
-    
+    </head>  
     <body>
         <!-- Home -->
         <div data-role="page" id="page1">
@@ -109,7 +108,7 @@
                     <p id="summery">
                     </p>
                 </div>
-                <a data-role="button" id="fullReview">
+                <a data-role="button"  href='#page11'>
                     Full Review
                 </a>
             </div>
@@ -195,6 +194,10 @@
                 </a>
             </div>
         </div>
+       <div class="loader" id="page11">
+		<iframe id="frame" src="" scrolling="yes" width="100%" height="100%">
+		</iframe>
+		</div>
         <script>
               //App custom javascript
         </script>

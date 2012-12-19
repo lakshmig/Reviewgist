@@ -272,6 +272,7 @@ function closestEnabledButton( element ) {
 }
 
 $(document).ready(function () {
+	 document.addEventListener("deviceready", startApp, false);
 	$.getJSON("http://www.reviewgist.de/api?operation=listmodels&format=json",
 	 function(data) {
 				 $.each(data.response.models, function(i,model){
@@ -282,6 +283,12 @@ $(document).ready(function () {
   }); 
 })(jQuery);
 
+/**
+ * Start the App
+ */
+function startApp() {
+	alert("in device ready");
+};
 
 function getBrands(Id,display_name){	
 	$('#brands').html(display_name);
@@ -372,6 +379,7 @@ function getReview(configId,rName,pName){
 								$('#review_rating_name').html(review.name);
 								$('#date_span').html(review.date);
 								$('#summery').html(review.summary);
+								$('#frame').attr('src',review.url);
 								}
 						 });
 					 });	
