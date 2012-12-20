@@ -274,7 +274,7 @@ function closestEnabledButton( element ) {
 $(document).ready(function () {
 	 document.addEventListener("deviceready", startApp, false);
 	$.getJSON("http://www.reviewgist.de/api?operation=listmodels&format=json",
-	 function(data,status) {
+	 function(data) {
 				 $.each(data.response.models, function(i,model){
 					 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4" data-transition="slide" onclick="getBrands(\'' + model.model_id +'\',\''+ model.display_name + '\')">' + model.display_name + '</a></li>');
 				 });
