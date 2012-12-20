@@ -18,6 +18,7 @@
         </script>
         <script type="text/javascript" charset="utf-8" src="cordova-2.3.0rc1.js"></script>
         <script type="text/javascript" charset="utf-8" src="phonegap-1.2.0.js"></script>
+         <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>  
         <script src="./my.js">
         </script>
     </head>  
@@ -78,6 +79,7 @@
                     <img  id="product_img" style="width: 60%; height: 25%">
                 </div>
                 <div id="product_price"style=" text-align:center">
+               		<a id="product_price_button" data-role="button"></a>
                 </div>
                 <ul id="product_reviews" data-role="listview" data-divider-theme="b" data-inset="true">
                 </ul>
@@ -108,7 +110,7 @@
                     <p id="summery">
                     </p>
                 </div>
-                <a data-role="button"  href='#page11'>
+                <a data-role="button"  id="fullreview" onclick="loadReviewPage()">
                     Full Review
                 </a>
             </div>
@@ -194,10 +196,6 @@
                 </a>
             </div>
         </div>
-       <div class="loader" id="page11">
-		<iframe id="frame" src="" scrolling="yes" width="100%" height="100%">
-		</iframe>
-		</div>
         <script>
               //App custom javascript
         </script>
