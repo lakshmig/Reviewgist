@@ -29,7 +29,9 @@ public class RewiewGist extends DroidGap
     {
     	super.setIntegerProperty("loadUrlTimeoutValue", 70000); 
         super.onCreate(savedInstanceState);
-        super.loadUrl("file:///android_asset/www/app.html");
+        super.clearCache(); 
+       // super.setIntegerProperty("splashscreen",R.drawable.splash);
+        super.loadUrl("file:///android_asset/www/app.html#page1");
     }
 }
 

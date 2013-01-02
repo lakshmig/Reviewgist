@@ -11,14 +11,17 @@
         <link rel="stylesheet" href="my.css" />
         <style>
             /* App custom styles */
+            #page1, #page4, #page5, #page6, #page8, #page10{
+            	background-color: white; background-image:none;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
-        </script>
+        </script>  
         <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js">
         </script>
         <script type="text/javascript" charset="utf-8" src="cordova-2.3.0rc1.js"></script>
         <script type="text/javascript" charset="utf-8" src="phonegap-1.2.0.js"></script>
-         <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>  
+        <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script> 
         <script src="./my.js">
         </script>
     </head>  
@@ -69,18 +72,16 @@
             </div>
         </div>
         <!-- product -->
-       <div data-role="page" id="page6">
+       <div data-role="page" id="page6" style="background-color: white; background-image: none">
             <div data-theme="a" data-role="header">
                 <h3 id="product">
                 </h3>
             </div>
             <div data-role="content">
                 <div style=" text-align:center">
-                    <img  id="product_img" style="width: 60%; height: 25%">
+                    <img  id="product_img" style="width:50%">
                 </div>
-                <div id="product_price"style=" text-align:center">
-               		<a id="product_price_button" data-role="button"></a>
-                </div>
+               	<a data-role="button" id="button_price"  href="#" onclick="checkPrice()"></a>
                 <ul id="product_reviews" data-role="listview" data-divider-theme="b" data-inset="true">
                 </ul>
             </div>
@@ -93,10 +94,10 @@
             </div>
             <div data-role="content">
                 <div style=" text-align:center">
-                    <img id="review_prd_img" style="width: 60%; height: 25%">
+                    <img id="review_prd_img" style="width: 50%">
                 </div>
                 <div id="rating_div" class="reviewHeader expandable row">
-				<div id="reviewRating"class="reviewRating span2">
+				<div id="reviewRating" class="reviewRating span2">
 				</div>
 				<div id="review_rating_name" class="reviewTitle span8">
 				</div>
