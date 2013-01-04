@@ -276,18 +276,21 @@ $(document).ready(function () {
   }); 
 })(jQuery);
 
+
+
 var fullReviewUrl = "";
 var priceUrl = "";
+var button_disabled = false;
 /**
  * Start the App
  */
 function startApp() {
 	//alert("in device ready");
+	 $('#listmodels').empty();
 	$.getJSON("http://www.reviewgist.de/api?operation=listmodels&format=json",
 			 function(data) {
-						 $('#listmodels').empty();
 						 $.each(data.response.models, function(i,model){
-							 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4" data-transition="slide" onclick="getBrands(\'' + model.model_id +'\',\''+ model.display_name + '\')">' + model.display_name + '</a></li>');
+							 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4"  data-transition="none" onclick="getBrands(\'' + model.model_id +'\',\''+ model.display_name + '\')">' + model.display_name + '</a></li>');
 						 });
 						 $('#listmodels').listview('refresh');
 					 }
@@ -297,15 +300,14 @@ function startApp() {
 function getBrands(Id,display_name){
 	$('#brands').html(display_name);
 	//alert("in get brands");
+	$('#listbrands').empty();
 	$.getJSON("http://www.reviewgist.de/api?operation=listbrands&model_id="+Id+"&format=json",
 			 function(data) {	
 						//alert("in getbrands function data");
-						//$('#listbrands li').remove();
-						 $('#listbrands').empty();
 						//alert("in getbrands function after removing li");
 						 $.each(data.response.brands, function(i,brand){
 							// alert("in getbrands function inside each before appending");
-							 $('#listbrands').append('<li data-theme="c" id='+ brand.brand_id + '><a href="#page5" data-transition="slide" onclick="getListing(\'' + Id +'\',\''+ brand.brand_id +'\',\''+ brand.display_name + '\')">' + brand.display_name + '</a></li>');
+							 $('#listbrands').append('<li data-theme="c" id='+ brand.brand_id + '><a href="#page5"  data-transition="none" onclick="getListing(\'' + Id +'\',\''+ brand.brand_id +'\',\''+ brand.display_name + '\')">' + brand.display_name + '</a></li>');
 							//alert("in getbrands function inside each after apending");
 						 });
 						 $('#listbrands').listview('refresh');
@@ -315,13 +317,14 @@ function getBrands(Id,display_name){
 
 function getListing(model_id,brand_id,display_name){
 	//alert("in getListing");
-	var count = 1;
+	var count = 10;
+	var button_disabled = false;
 	$('#listing').html(display_name);
 	//alert(count);
 	pupulateListing(model_id,brand_id,count);
 	//alert("after populateListing");
 	$('#loadmore').bind('click', function () {
-		count += 1;
+		count += 10;
 		//alert("after loadmore " +count);
 		pupulateListing(model_id,brand_id,count);	
 		});
@@ -350,7 +353,14 @@ function getProduct(pName,imgUrl,pPrice,config_id){
 				priceUrl = data.response.prices_url;
 				//alert("in getProduct function data: " + priceUrl);
 				//$('#product_reviews').empty();
-						 $.each(data.response.reviews, function(i,review){
+						 $.each(data.response.reviews, function(i,review){							 
+							 if(review.star_rating == "null")
+								 {
+								 var stardiv = '<div id="stardiv" class="reviewRating span3">'; 
+								 stardiv+="Rating unavailable";
+								 stardiv += '</div>';		
+								 }
+							 else{
 							 var stardiv = '<div id="stardiv" class="reviewRating span2">'; 
 							 var int = review.star_rating.substr(0,1);
 						     var decimal = review.star_rating.substr(1,review.star_rating.length);
@@ -377,9 +387,11 @@ function getProduct(pName,imgUrl,pPrice,config_id){
 							 for(var j =0;j<blankstar;j++)
 							 	{
 								 stardiv += '<img src="./img/blankstar.png" width="16" height="16" style="margin-right:2px;">'							 
-							 	}
+							 	}							
 							 stardiv += '</div>'
-							var li = '<li data-theme="c"><a href="#page8" data-transition="slide" onclick="getReview(\'' + config_id +'\',\''+ review.name +'\',\''+ pName + '\')">' + stardiv + review.name + '</a></li>';
+							 }//end of else
+							 
+							var li = '<li data-theme="c"><a href="#page8"  data-transition="none" onclick="getReview(\'' + config_id +'\',\''+ review.name +'\',\''+ pName + '\')">' + stardiv + review.name + '</a></li>';
 							 $('#product_reviews').append(li);
 						 });
 						 $('#product_reviews').listview('refresh');
@@ -396,7 +408,12 @@ function getReview(configId,rName,pName){
 								{
 								$('#review_product').html(pName);
 								$('#review_prd_img').attr('src',data.response.image_url);
+								$('#reviewRating').html();
 								$('#reviewRating img').remove();
+								if(review.star_rating == "null"){
+									 $('#reviewRating').html("Rating unavailable");
+									 }
+								else{
 								 var int = review.star_rating.substr(0,1);
 							     var decimal = review.star_rating.substr(1,review.star_rating.length);
 							     var flag=false;
@@ -421,6 +438,7 @@ function getReview(configId,rName,pName){
 								 for(var j = 0;j < blankstar; j++){
 										$('#reviewRating').append('<img src="./img/blankstar.png" width="16" height="16" style="margin-right:2px;">');	
 										}
+								}
 								$('#review_rating_name').html(review.name);
 								$('#date_span').html(review.date);
 								$('#summery').html(review.summary);
@@ -431,37 +449,60 @@ function getReview(configId,rName,pName){
 };
 
 function pupulateListing(model_id,brand_id,count){
+	$.mobile.loading( 'show', { theme: "d", text: "Loading..", textVisible : true });
 	//alert("in pupulateListing");
-	$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems=10&page="+count+"&format=json",
+	var flag_list_empty = false;
+	if(count ==10)
+		{
+		$('#productlists').empty();
+		flag_list_empty= true;
+		}
+	$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems="+count+"&format=json",
 			 function(data) {
-						 $('#productlists').empty();
+		                 if(!flag_list_empty){
+		                	 $('#productlists').empty();
+		                 }	                
 						 $.each(data.response.products, function(i,product){
 							var pName = "";
+							var brandName = "";
+							brandName = brandName.concat(product.brandname);
+							brandName = brandName.concat(" ");
 							pName = pName.concat(product.productline);
 							if(pName){
 							pName = pName.concat(" ");
 							}
 							pName = pName.concat(product.productnum);
+							brandName = brandName.concat(pName);
 							 if(product.best_price)
 								 {
-								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="slide" onclick="getProduct(\'' + pName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName +'<span class="ui-li-count">' + product.best_price + '</span></a></li>');
+								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="none" onclick="getProduct(\'' + brandName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName +'<span class="ui-li-count">' + product.best_price + '</span></a></li>');
 								 }
 							 else
 								 {
-								 $('#productlists').append('<li data-theme="c"><a href="#page6" data-transition="slide" onclick="getProduct(\'' + pName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName + '</a></li>');
+								 $('#productlists').append('<li data-theme="c"><a href="#page6"  data-transition="none" onclick="getProduct(\'' + brandName +'\',\'' + product.image_url + '\',\'' + product.best_price + '\',\''+ product.config_id + '\')">' + pName + '</a></li>');
 								 }
 						 });
 						 $('#productlists').listview('refresh');
+						 $.mobile.loading( 'hide');
+						 if( data.response.num_results <= count)
+						 {
+						 //disble the more button
+						 $('#loadmore').addClass('ui-disabled');
+						 button_disabled = true;
+						 }
+						 else if(button_disabled){
+						 $('#loadmore').removeClass('ui-disabled');  
+						 button_disabled = false;
+					 }
 					 });	
 };
 
 function loadReviewPage(){
 	// Now open new browser
-	window.plugins.childBrowser.showWebPage(fullReviewUrl, {showLocationBar : false}); 	
+	window.plugins.childBrowser.openExternal(fullReviewUrl,false);
 }
 
 function checkPrice(){
 	// Now open new browser
-	window.plugins.childBrowser.showWebPage(priceUrl, {showLocationBar : false}); 	
-
-	}
+	window.plugins.childBrowser.openExternal(priceUrl,false);
+}

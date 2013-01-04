@@ -13,6 +13,10 @@
             /* App custom styles */
             #page1, #page4, #page5, #page6, #page8, #page10{
             	background-color: white; background-image:none;
+            } 
+            .ui-header .ui-title, .ui-footer .ui-title{
+            overlay:visible;
+            white-space:normal;
             }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
@@ -27,7 +31,7 @@
     </head>  
     <body>
         <!-- Home -->
-        <div data-role="page" id="page1">
+        <div data-role="page" id="page1"  data-dom-cache="true">
             <div data-role="content">
                 <div style=" text-align:center">
                     <img style="width: 177px; height: 38px" src="./img/logo.png">
@@ -47,7 +51,7 @@
             </div>
         </div>
         <!-- brands -->
-        <div data-role="page" id="page4">
+        <div data-role="page" id="page4" >
             <div data-theme="a" data-role="header">
                 <h3 id="brands">
                  </h3>
@@ -58,7 +62,7 @@
             </div>
         </div>
         <!-- listing -->
-        <div data-role="page" id="page5">
+        <div data-role="page" id="page5" >
             <div data-theme="a" data-role="header">
                 <h3 id="listing">
                 </h3>
@@ -72,7 +76,7 @@
             </div>
         </div>
         <!-- product -->
-       <div data-role="page" id="page6" style="background-color: white; background-image: none">
+       <div data-role="page" id="page6" >
             <div data-theme="a" data-role="header">
                 <h3 id="product">
                 </h3>
@@ -87,7 +91,7 @@
             </div>
         </div>
         <!-- review -->
-        <div data-role="page" id="page8">
+        <div data-role="page" id="page8" >
             <div data-theme="a" data-role="header">
                 <h3 id="review_product">
                 </h3>
@@ -116,90 +120,6 @@
                 </a>
             </div>
         </div>
-        <!-- splash [can skip] -->
-        <div data-role="page" id="page3">
-            <div data-role="content">
-                <div>
-                    <p style="text-align: center;" data-mce-style="text-align: center;">
-                        <b>
-                            <br>
-                        </b>
-                    </p>
-                    <p style="text-align: center;" data-mce-style="text-align: center;">
-                        <b>
-                            <br>
-                        </b>
-                    </p>
-                    <p style="text-align: center;" data-mce-style="text-align: center;">
-                        <b>
-                            <br>
-                        </b>
-                    </p>
-                    <p style="text-align: center;" data-mce-style="text-align: center;">
-                        <b>
-                            <br>
-                        </b>
-                    </p>
-                    <p style="text-align: center;" data-mce-style="text-align: center;">
-                        <b>
-                            <br>
-                        </b>
-                    </p>
-                </div>
-                <div style=" text-align:center">
-                    <img style="width: 177px; height: 38px" src="http://www.reviewgist.com/images/index/reviewgist-logo.png">
-                </div>
-                <div>
-                    <p style="text-align: center;">
-                        <b>
-                            <span style="font-family: verdana,geneva;">
-                                <em>
-                                    reviews to go
-                                </em>
-                            </span>
-                            <span data-mce-bogus="true" id="_mce_caret">
-                                <em>
-                                    ​
-                                </em>
-                            </span>
-                            <br>
-                        </b>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- feedback [can skip] -->
-        <div data-role="page" id="page10">
-            <div data-theme="a" data-role="header">
-                <h3>
-                    Feedback
-                </h3>
-            </div>
-            <div data-role="content">
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <label for="textarea1">
-                            Message
-                        </label>
-                        <textarea name="" id="textarea1" placeholder=""></textarea>
-                    </fieldset>
-                </div>
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup" data-mini="true">
-                        <label for="textinput1">
-                            Email
-                        </label>
-                        <input name="" id="textinput1" placeholder="" value="Optional" type="text">
-                    </fieldset>
-                </div>
-                <a data-role="button" href="#page10">
-                    Submit
-                </a>
-            </div>
-        </div>
-        <script>
-              //App custom javascript
-        </script>
     </body>
 
 </html>
