@@ -357,7 +357,7 @@ function getProduct(pName,imgUrl,pPrice,config_id){
 							 if(review.star_rating == "null")
 								 {
 								 var stardiv = '<div id="stardiv" class="reviewRating span3">'; 
-								 stardiv+="Rating unavailable";
+								 stardiv+="Rating Unavailable";
 								 stardiv += '</div>';		
 								 }
 							 else{
@@ -411,7 +411,7 @@ function getReview(configId,rName,pName){
 								$('#reviewRating').html();
 								$('#reviewRating img').remove();
 								if(review.star_rating == "null"){
-									 $('#reviewRating').html("Rating unavailable");
+									 $('#reviewRating').html("Rating Unavailable");
 									 }
 								else{
 								 var int = review.star_rating.substr(0,1);
