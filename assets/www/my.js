@@ -281,6 +281,9 @@ $(document).ready(function () {
 var fullReviewUrl = "";
 var priceUrl = "";
 var button_disabled = false;
+var gmodel_id="";
+var gbrand_id="";
+var gcount =0;
 /**
  * Start the App
  */
@@ -317,16 +320,17 @@ function getBrands(Id,display_name){
 
 function getListing(model_id,brand_id,display_name){
 	//alert("in getListing");
-	var count = 10;
+	gcount = 10;
 	var button_disabled = false;
 	$('#listing').html(display_name);
-	//alert(count);
-	pupulateListing(model_id,brand_id,count);
+	gmodel_id = model_id;
+	gbrand_id= brand_id;
+	pupulateListing(model_id,brand_id,gcount);
 	//alert("after populateListing");
 	$('#loadmore').bind('click', function () {
-		count += 10;
+		gcount += 10;
 		//alert("after loadmore " +count);
-		pupulateListing(model_id,brand_id,count);	
+		pupulateListing(gmodel_id,gbrand_id,gcount);	
 		});
 };
 
@@ -451,18 +455,14 @@ function getReview(configId,rName,pName){
 function pupulateListing(model_id,brand_id,count){
 	$.mobile.loading( 'show', { theme: "d", text: "Loading..", textVisible : true });
 	//alert("in pupulateListing");
-	var flag_list_empty = false;
 	if(count ==10)
 		{
 		$('#productlists').empty();
-		flag_list_empty= true;
 		}
 	$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems="+count+"&format=json",
 			 function(data) {
-		                 if(!flag_list_empty){
 		                	 $('#productlists').empty();
-		                 }	                
-						 $.each(data.response.products, function(i,product){
+		                	 $.each(data.response.products, function(i,product){
 							var pName = "";
 							var brandName = "";
 							brandName = brandName.concat(product.brandname);
