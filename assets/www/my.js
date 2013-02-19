@@ -290,6 +290,10 @@ var gcount =0;
 /**
  * Start the App
  */
+$('.activeOnce').live('click', function() {
+    $(this).removeClass("ui-btn-active");
+})
+
 function startApp() {
 	//alert("in device ready");
 	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
@@ -507,6 +511,7 @@ function pupulateListing(model_id,brand_id,count){
 						 $('#loadmore').removeClass('ui-disabled');  
 						 button_disabled = false;
 					 }
+						 $('#loadmore').removeClass("ui-btn-active");
 					 });	
 };
 
