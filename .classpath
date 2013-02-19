@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="lib" path="C:/adt-bundle-windows/phonegap-phonegap-8a3aa47/lib/android/ReviewGist/libs/cordova-2.3.0rc1.jar"/>
+	<classpathentry kind="lib" path="/Android/adt-bundle-mac-x86_64/cordova-2.3.0/cordova-android/Reviewgist/libs/cordova-2.3.0rc1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -273,6 +273,9 @@ function closestEnabledButton( element ) {
 
 $(document).ready(function () {
 	 document.addEventListener("deviceready", startApp, false);	
+	 document.addEventListener('load', function() {
+		    new FastClick(document.body);
+		}, false);
   }); 
 })(jQuery);
 
@@ -289,6 +292,7 @@ var gcount =0;
  */
 function startApp() {
 	//alert("in device ready");
+	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
 	 $('#listmodels').empty();
 	$.getJSON("http://www.reviewgist.de/api?operation=listmodels&format=json",
 			 function(data) {
@@ -296,11 +300,13 @@ function startApp() {
 							 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4"  data-transition="none" onclick="getBrands(\'' + model.model_id +'\',\''+ model.display_name + '\')">' + model.display_name + '</a></li>');
 						 });
 						 $('#listmodels').listview('refresh');
+						 $.unblockUI();
 					 }
 			 );
 };
 
 function getBrands(Id,display_name){
+	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
 	$('#brands').html(display_name);
 	//alert("in get brands");
 	$('#listbrands').empty();
@@ -315,6 +321,7 @@ function getBrands(Id,display_name){
 						 });
 						 $('#listbrands').listview('refresh');
 						 //alert("in getbrands function  after refresh");
+						 $.unblockUI();
 					 });	
 };
 
@@ -335,6 +342,7 @@ function getListing(model_id,brand_id,display_name){
 };
 
 function getProduct(pName,imgUrl,pPrice,config_id){
+	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
 	$('#product').html(pName);
 	if(imgUrl == "")
 		{
@@ -399,10 +407,12 @@ function getProduct(pName,imgUrl,pPrice,config_id){
 							 $('#product_reviews').append(li);
 						 });
 						 $('#product_reviews').listview('refresh');
+						 $.unblockUI();
 					 });
 };	
 
 function getReview(configId,rName,pName){
+	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
 	//alert("in getReview function data");
 	$.getJSON("http://www.reviewgist.de/api?operation=productsummary&config_id="+configId+"&format=json",
 			 function(data) {
@@ -448,12 +458,15 @@ function getReview(configId,rName,pName){
 								$('#summery').html(review.summary);
 								fullReviewUrl = review.url;
 								}
+							 $.unblockUI();
 						 });
 					 });
 };
 
 function pupulateListing(model_id,brand_id,count){
-	$.mobile.loading( 'show', { theme: "d", text: "Loading..", textVisible : true });
+	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
+	//$('#listmodels').empty();
+	//$.mobile.loading( 'show', { theme: "d", text: "Loading..", textVisible : true });
 	//alert("in pupulateListing");
 	if(count ==10)
 		{
@@ -483,7 +496,7 @@ function pupulateListing(model_id,brand_id,count){
 								 }
 						 });
 						 $('#productlists').listview('refresh');
-						 $.mobile.loading( 'hide');
+						 $.unblockUI();
 						 if( data.response.num_results <= count)
 						 {
 						 //disble the more button

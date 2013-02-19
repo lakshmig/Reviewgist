@@ -20,6 +20,15 @@
             margin-right: 5%;
     		margin-left: 5%;
             }
+            #blockUI { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff' 
+        } 
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
         </script>  
@@ -28,10 +37,12 @@
         <script type="text/javascript" charset="utf-8" src="cordova-2.3.0rc1.js"></script>
         <script type="text/javascript" charset="utf-8" src="phonegap-1.2.0.js"></script>
         <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script> 
+        <script type="application/javascript" src="fastclick.js"></script>
+        <script type="application/javascript" src="jquery.blockUI.js"></script>
         <script src="./my.js">
         </script>
     </head>  
-    <body>
+    <body >
         <!-- Home -->
         <div data-role="page" id="page1"  data-dom-cache="true">
             <div data-role="content">
@@ -47,9 +58,9 @@
                 </div>
                 <ul id="listmodels" data-role="listview" data-divider-theme="b" data-inset="true">
                 </ul>
-                <a data-role="button" href="#page1">
+                <!--  <a data-role="button" href="#page1">
                     Feedback
-                </a>
+                </a> -->
             </div>
         </div>
         <!-- brands -->
