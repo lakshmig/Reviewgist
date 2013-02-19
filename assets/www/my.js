@@ -296,6 +296,7 @@ $('.activeOnce').live('click', function() {
 
 function startApp() {
 	//alert("in device ready");
+	navigator.splashscreen.hide();
 	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
 	 $('#listmodels').empty();
 	$.getJSON("http://www.reviewgist.de/api?operation=listmodels&format=json",
