@@ -18,3 +18,4 @@ To set up the enviroment follow the steps mentioned in the below link. Instaed
 http://docs.phonegap.com/en/2.5.0/guide_getting-started_android_index.md.html#Getting%20Started%20with%20Androi
 
 The apk file is present in the following path, you can download and check it outon the Android Phone.
+ReviewGist/bin/ReviewGist.apk
