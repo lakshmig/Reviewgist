@@ -272,11 +272,21 @@ function closestEnabledButton( element ) {
 }
 
 $(document).ready(function () {
-	 document.addEventListener("deviceready", startApp, false);	
+	 //document.addEventListener("deviceready", startApp, false);	
+	
+	$.ajaxSetup({
+		contentType: "application/json",
+		jsonpCallback: "jsonCallback",
+		dataType: 'jsonp',
+		async: false
+	})
+	
 	 document.addEventListener('load', function() {
 		    new FastClick(document.body);
 		}, false);
+	 startApp();
   }); 
+
 })(jQuery);
 
 
@@ -294,12 +304,15 @@ $('.activeOnce').live('click', function() {
     $(this).removeClass("ui-btn-active");
 })
 
+
 function startApp() {
-	//alert("in device ready");
-	navigator.splashscreen.hide();
+	alert("in device ready");
+	//navigator.splashscreen.hide();
 	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
-	 $('#listmodels').empty();
-	$.getJSON("http://www.reviewgist.de/api?operation=listmodels&format=json",
+	$('#listmodels').empty();	
+	url = "http://www.reviewgist.de/api?operation=listmodels&format=json"
+		
+	$.getJSON("https://reviewgist-timepass.rhcloud.com/proxy/relay?callback=?&url=" + encodeURIComponent(url),
 			 function(data) {
 						 $.each(data.response.models, function(i,model){
 							 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4"  data-transition="none" onclick="getBrands(\'' + model.model_id +'\',\''+ model.display_name + '\')">' + model.display_name + '</a></li>');
