@@ -310,9 +310,9 @@ function startApp() {
 	//navigator.splashscreen.hide();
 	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
 	$('#listmodels').empty();	
-	url = "http://www.reviewgist.de/api?operation=listmodels&format=json"
+	listurl = "http://www.reviewgist.de/api?operation=listmodels&format=json"
 		
-	$.getJSON("https://reviewgist-timepass.rhcloud.com/proxy/relay?callback=?&url=" + encodeURIComponent(url),
+	$.getJSON("https://reviewgist-timepass.rhcloud.com/proxy/relay?callback=?&url=" + encodeURIComponent(listurl),
 			 function(data) {
 						 $.each(data.response.models, function(i,model){
 							 $('#listmodels').append('<li data-theme="c" id='+ model.model_id + '><a href="#page4"  data-transition="none" onclick="getBrands(\'' + model.model_id +'\',\''+ model.display_name + '\')">' + model.display_name + '</a></li>');
@@ -328,7 +328,8 @@ function getBrands(Id,display_name){
 	$('#brands').html(display_name);
 	//alert("in get brands");
 	$('#listbrands').empty();
-	$.getJSON("http://www.reviewgist.de/api?operation=listbrands&model_id="+Id+"&format=json",
+	brandurl = "http://www.reviewgist.de/api?operation=listbrands&model_id="+Id+"&format=json";
+	$.getJSON("https://reviewgist-timepass.rhcloud.com/proxy/relay?callback=?&url=" + encodeURIComponent(brandurl),
 			 function(data) {	
 						//alert("in getbrands function data");
 						//alert("in getbrands function after removing li");
@@ -378,7 +379,8 @@ function getProduct(pName,imgUrl,pPrice,config_id){
 	$('#button_price').html(pPrice);		
 	}
 	$('#product_reviews').empty();
-	$.getJSON("http://www.reviewgist.de/api?operation=productsummary&config_id="+config_id+"&format=json",
+	var psummaryurl="http://www.reviewgist.de/api?operation=productsummary&config_id="+config_id+"&format=json";
+	$.getJSON("https://reviewgist-timepass.rhcloud.com/proxy/relay?callback=?&url=" + encodeURIComponent(psummaryurl),
 			 function(data) {
 				priceUrl = data.response.prices_url;
 				//alert("in getProduct function data: " + priceUrl);
@@ -432,7 +434,8 @@ function getProduct(pName,imgUrl,pPrice,config_id){
 function getReview(configId,rName,pName){
 	$.blockUI({ message: '<h1><img src="./img/loading.gif" /> </h1>' }); 
 	//alert("in getReview function data");
-	$.getJSON("http://www.reviewgist.de/api?operation=productsummary&config_id="+configId+"&format=json",
+	var reviewurl="http://www.reviewgist.de/api?operation=productsummary&config_id="+configId+"&format=json";
+	$.getJSON("https://reviewgist-timepass.rhcloud.com/proxy/relay?callback=?&url=" + encodeURIComponent(reviewurl),
 			 function(data) {
 				//alert("in getReview function data");
 						 $.each(data.response.reviews, function(i,review){
@@ -490,7 +493,8 @@ function pupulateListing(model_id,brand_id,count){
 		{
 		$('#productlists').empty();
 		}
-	$.getJSON("http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems="+count+"&format=json",
+	var listingurl="http://www.reviewgist.de/api?operation=search&model_id="+model_id+"&brand_id="+brand_id+"&pageitems="+count+"&format=json";
+	$.getJSON("https://reviewgist-timepass.rhcloud.com/proxy/relay?callback=?&url=" + encodeURIComponent(listingurl),
 			 function(data) {
 		                	 $('#productlists').empty();
 		                	 $.each(data.response.products, function(i,product){
