@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/iphone.css" />
     <script src="javascripts/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -51,20 +52,42 @@ ReviewGist/bin/ReviewGist.apk</p>
         </section>
 	
         <aside id="sidebar">
-		<iframe src="assets/www/app.html"  style="width:100%; padding:0; margin:0" frameborder=0></iframe>      
+		<div class='iphone'>
+                  <div class='steel_band'>
+                    <div class='mute_rocker'></div>
+                    <div class='volume up'></div>
+                    <div class='volume down'></div>
+                    <div class='sleep_wake'></div>
+                    <div class='plastic_band'>
+                      <div class='glass_face'>
+                        <div class='camera'></div>
+                        <div class='speaker'></div>
+                        <div class='home_button'></div>
+                        <div class='gloss'></div>
+                        <div class='screen'>
+                            <div class='stage' style="position:relative">
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+                </div>
+<script>
+        $(document).ready(function(){
+var height = $(".stage").height() + "px"
+var width = $(".stage").width() + "px"
+var left = $(".stage").offset().left + "px"
+var top = $(".stage").offset().top + "px"
+console.log("height " + height + " width " + width + " top " + top + " left " + left)
+$('body').append("<iframe src='assets/www/app.html'  style='z-index:3; position: absolute; top:"+top+"; left:"+left+"; width:"+width+"; height:"+height+";  padding:0; margin:0' frameborder=0></iframe>")
+})
+</script>
+
         </aside>
-	<script>
-	/*	$.ajax({
-			url: "https://raw.github.com/lakshmig/Reviewgist/gh-pages/assets/www/app.html",
-			success: function(data) {
-				alert(data)
-			},
-			error: function() {
-				alert("error")
-			}
-		}) */	
-	</script>
-      </div>
+	
+      
+	</div>
     </div>
 
   
