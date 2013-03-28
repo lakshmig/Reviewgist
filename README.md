@@ -10,7 +10,7 @@ Androind version(2.3)
 
 The app will soon be available in the Google Play.
 
-Installaiton Guide:
+Installation Guide:
 -------------------
 
 To set up the enviroment follow the steps mentioned in the below link. Instaed
