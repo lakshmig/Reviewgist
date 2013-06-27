@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+        </title>
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.css"
+        />
+        <link rel="stylesheet" href="my.css" />
+        <style>
+            /* App custom styles */
+            #page1, #page4, #page5, #page6, #page8, #page10{
+            	background-color: white; background-image:none;
+            } 
+             .ui-header .ui-title, .ui-footer .ui-title{
+            overlay:visible;
+            white-space:normal;
+            margin-right: 5%;
+    		margin-left: 5%;
+            }
+            #blockUI { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff' 
+        } 
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+        </script>  
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js">
+        </script>
+        <script type="text/javascript" charset="utf-8" src="cordova-2.3.0rc1.js"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap-1.2.0.js"></script>
+        <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script> 
+        <script type="application/javascript" src="fastclick.js"></script>
+        <script type="application/javascript" src="jquery.blockUI.js"></script>
+        <script src="./my.js">
+        </script>
+    </head>  
+    <body >
+        <!-- Home -->
+        <div data-role="page" id="page1"  data-dom-cache="true">
+            <div data-role="content">
+                <div style=" text-align:center">
+                    <img style="width: 177px; height: 38px" src="./img/logo.png">
+                </div>
+                <div>
+                    <p style="text-align: center;">
+                        <em>
+                            reviews to go
+                        </em>
+                    </p>
+                </div>
+                <ul id="listmodels" data-role="listview" data-divider-theme="b" data-inset="true">
+                </ul>
+                <!--  <a data-role="button" href="#page1">
+                    Feedback
+                </a> -->
+            </div>
+        </div>
+        <!-- brands -->
+        <div data-role="page" id="page4" >
+            <div data-theme="a" data-role="header">
+                <h3 id="brands">
+                 </h3>
+            </div>
+            <div data-role="content">
+                <ul id="listbrands" data-role="listview" data-divider-theme="b" data-inset="true">                   
+                </ul>
+            </div>
+        </div>
+        <!-- listing -->
+        <div data-role="page" id="page5" >
+            <div data-theme="a" data-role="header">
+                <h3 id="listing">
+                </h3>
+            </div>
+            <div data-role="content">
+                <ul id="productlists" data-role="listview" data-divider-theme="b" data-inset="true">     
+                </ul>
+                <a data-role="button" id="loadmore" href='#page5'>
+                    More ...
+                </a>
+            </div>
+        </div>
+        <!-- product -->
+       <div data-role="page" id="page6" >
+            <div data-theme="a" data-role="header">
+                <h3 id="product">
+                </h3>
+            </div>
+            <div data-role="content">
+                <div style=" text-align:center">
+                    <img  id="product_img" style="width:50%">
+                </div>
+               	<a data-role="button" id="button_price"  href="#" onclick="checkPrice()"></a>
+                <ul id="product_reviews" data-role="listview" data-divider-theme="b" data-inset="true">
+                </ul>
+            </div>
+        </div>
+        <!-- review -->
+        <div data-role="page" id="page8" >
+            <div data-theme="a" data-role="header">
+                <h3 id="review_product">
+                </h3>
+            </div>
+            <div data-role="content">
+                <div style=" text-align:center">
+                    <img id="review_prd_img" style="width: 50%">
+                </div>
+                <div id="rating_div" class="reviewHeader expandable row">
+				<div id="reviewRating" class="reviewRating span2">
+				</div>
+				<div id="review_rating_name" class="reviewTitle span8">
+				</div>
+				<div style="clear:both;"></div>
+				</div>
+                <div>
+                    <p>
+                        <span id="date_span" style="font-size: x-small;" data-mce-style="font-size: x-small;">
+                        </span>
+                    </p>
+                    <p id="summery">
+                    </p>
+                </div>
+                <a data-role="button"  id="fullreview" onclick="loadReviewPage()">
+                    Full Review
+                </a>
+            </div>
+        </div>
+    </body>
+
+</html>

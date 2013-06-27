@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+<<<<<<< HEAD
 	<classpathentry excluding="com/manuelmaly/hnreader/parser/OldHNFeedParser.java|com/manuelmaly/hnreader/parser/BaseHTMLStringListParser.java|com/manuelmaly/hnreader/parser/BaseHTMLIntListParser.java" kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
@@ -14,5 +15,12 @@
 	<classpathentry kind="lib" path="libs/libGoogleAnalytics.jar"/>
 	<classpathentry kind="lib" path="libs/jsoup-1.6.3.jar"/>
 	<classpathentry kind="lib" path="libs/android-query-full.0.25.10.jar"/>
+=======
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="/Android/adt-bundle-mac-x86_64/cordova-2.3.0/cordova-android/Reviewgist/libs/cordova-2.3.0rc1.jar"/>
+>>>>>>> e26c89cb59069617cf91b7d197e3d362c1f2a5be
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
