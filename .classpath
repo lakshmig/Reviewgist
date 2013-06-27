@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="libs/androidannotations-2.5-api.jar"/>
 	<classpathentry kind="lib" path="libs/libGoogleAnalytics.jar"/>
 	<classpathentry kind="lib" path="libs/jsoup-1.6.3.jar"/>
+	<classpathentry kind="lib" path="libs/android-query-full.0.25.10.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
